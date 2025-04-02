@@ -1,0 +1,92 @@
+<!-- Thêm vào file index.html -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<div class="container">
+    <h1>TINY URL</h1>
+
+    <!-- Form nhập Long URL --> 
+    <div class="form-group">
+        <label for="longUrl"><strong><i class="fas fa-link"></i>Original URL</strong></label>
+        <input class="form-control" type="text" id="longUrl" placeholder="Enter long link here" [(ngModel)]="longUrl" />
+    </div>
+    <button class="btn btn-primary" (click)="shortenUrl()">Shorten URL</button>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert">
+        {{errorMessage}}
+    </div>
+
+    <!-- Result shortUrl & QR Code -->
+    <div *ngIf="shortUrl" class="form-group">
+            <label><strong><i class="fas fa-link"></i>Tiny URL</strong></label>
+            <input class="form-control" type="text" id="shortUrl" [(ngModel)]="originalUrl" />
+            <!-- <a [href]="originalUrl">{{shortUrl}}</a> -->
+
+        <!-- QRCode -->
+        <!-- <div *ngIf="qrCodeUrl">
+            <p>
+                <strong>QR Code:</strong>
+            </p>
+            <img [src]="qrCodeUrl" alt="QR Code">
+        </div> -->
+    </div>
+
+    <!-- Nút chức năng: Visit Link, QR Code, Share, Copy -->
+    <div class="form-function" *ngIf="shortUrl">
+
+        <a class="btn btn-secondary" [href]="originalUrl" (click)="confirmAccess($event)">
+            <i class="fas fa-link"> Visit</i>
+        </a>
+
+        <button class="btn btn-secondary qr-code" (click)="displayQRCode()">
+            <i class="fas fa-qrcode"> QR Code</i>
+            <img *ngIf="choosed" [src]="qrCodeUrl" class="qr-code-image">
+        </button>
+
+        <!-- Click vào button "shared" thì sẽ copy  nội dung input của id="shortUrl" ở trên-->
+        <button class="btn btn-secondary copy" (click)="copyToClipboard()"><i class="fas fa-copy"> Copy</i></button>
+
+        <button class="btn btn-secondary share" (click)="showDialogShare()"><i class="fas fa-share-nodes">Share</i></button>
+    </div>
+
+    <!-- Hiển thị Share Platforms -->
+    <!-- <p-dialog [(visible)]="dialogShare" [modal]="true">
+        <h2><i class="fa fa-bullhorn"></i>Share it</h2>
+        <div class="p-fluid">
+            <div class="p-field">
+                <i class="fa-brands fa-facebook fa-beat-fade"></i>
+                Facebook
+            </div>
+            <div class="p-field">
+                <i class="fa-brands fa-twitter fa-fade"></i>
+                Twitter
+            </div>
+            <div class="p-field">
+                <i class="fa-brands fa-whatsapp fa-spin fa-spin-reverse"></i>
+                Whatsapp
+            </div>
+            <div class="p-field">
+                <i class="fa-brands fa-linkedin fa-spin"></i>
+                Linkedin
+            </div>
+            <div class="p-field">
+                <i class="fas fa-envelope fa-flip"></i>
+                Email
+            </div>
+        </div>
+    </p-dialog> -->
+
+    <p-dialog [(visible)]="dialogShare" [modal]="true" [dismissableMask]="true">
+        <h2><i class="fa fa-bullhorn"></i> Share it</h2>
+        <div class="p-fluid">
+            <div class="p-field" *ngFor="let platform of sharePlatforms">
+                <a [href]="platform.url + longUrl" target="_blank" style="text-decoration: none;">
+                    <i class="fa-brands" [ngClass]="platform.icon" style="margin-right: 6px;"></i>
+                    {{ platform.name }}
+                </a>
+            </div>
+        </div>
+    </p-dialog>
+</div>
+<!-- okokokokokokokokokokokokokokokokokokokokoko -->

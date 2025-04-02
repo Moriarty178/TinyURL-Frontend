@@ -1,0 +1,236 @@
+.container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-family: Bungee, cursive;
+    font-size: 36px;
+    font-weight: bold;
+    color: #3498db; /* màu xanh lá cây đậm */
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* bóng chữ */
+    letter-spacing: 4px; /* khoảng cách giữa các chữ */
+    transition: all 0.3s ease-in-out;
+}
+
+h1:hover {
+    transform: scale(1.1);
+    color: #2ecc71; /* màu xanh lá cây sáng */
+}
+
+.container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /*Để border, padding nằm trong chiều rộng của form-control (input) thay vì tràn ra ngoài phần tử cha*/
+    border-radius: 5px;
+}
+
+.alert {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    font-size: 20px;
+    background: #f34343;
+    padding: 10px;
+    width: 92%;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #1f8244;
+    color: #fff;
+    border: none;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #3e8e41;
+    transform: scale(1.02);
+}
+
+/* .form-function {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+.btn-secondary {
+    width: 20%;
+    height: 40px;
+    padding: 10px;
+    margin-left: 4px;
+    font-size: 12px;
+    background-color: #0980a1;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #0980a1;
+    transform: scale(1.02);
+}
+
+a.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.error-message {
+    color: #f44336;
+    margin-bottom: 20px;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+.result p {
+    margin-bottom: 10px;
+}
+
+.result a {
+    text-decoration: none;
+    color: #337ab7;
+}
+
+.result a:hover {
+    color: #23527c;
+}
+
+.qr-code {
+    margin-top: 20px;
+}
+
+.qr-code {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code-image {
+    position: absolute;
+    display: block;
+    margin: 0 auto;
+    top: 40px;
+    left: 48px;
+    transition: all 0.2s ease-in-out;
+    transform: translateX(-50%);
+    max-width: 150px;
+    height: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-code-image:hover {
+    border-color: green;
+}
+
+/* Định dạng chung cho dialog */
+::ng-deep .p-dialog {
+    background-color: #ffffff; /* Nền trắng */
+    border-radius: 8px; /* Bo góc mềm mại */
+    border: 2px solid #0980a1; /* Viền màu xanh */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Hiệu ứng bóng */
+    /* opacity: 0.7;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out; */
+}
+
+/* Khi dialog mở, áp dụng hiệu ứng */
+::ng-deep .p-dialog.p-dialog-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Header của Dialog */
+::ng-deep .p-dialog-header {
+    background-color: #0980a1; /* Màu header */
+    color: white; /* Chữ trắng */
+    font-weight: bold;
+    border-top-left-radius: 8px; /* Bo tròn góc trên */
+    border-top-right-radius: 8px;
+}
+
+/* Nội dung bên trong */
+::ng-deep .p-dialog-content {
+    padding: 20px;
+}
+
+/* Các mục chia sẻ */
+.p-field a {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Khoảng cách giữa icon và text */
+    padding: 12px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    transition: background 0.3s, transform 0.2s;
+    font-weight: 500;
+}
+
+.p-field a i {
+    font-size: 18px; /* Cỡ icon */
+    color: #0980a1; /* Màu icon */
+}
+
+.p-field a:hover {
+    background-color: #d9edf7;
+    transform: scale(1.05); /* Nhấn nhá khi hover */
+}
+
+/* Làm tối nền khi dialog hiển thị */
+::ng-deep .p-dialog-mask {
+    background: rgba(0, 0, 0, 0.5) !important; /* Nền đen mờ */
+}
+
+i {
+    margin-right: 4px;
+}
