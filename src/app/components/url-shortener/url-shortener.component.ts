@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Apollo } from 'apollo-angular';
+import { GraphqlsService } from 'src/app/services/graphqls.service';
 import { UrlService } from 'src/app/services/url.service';
 
 @Component({
@@ -13,7 +15,7 @@ export class UrlShortenerComponent implements OnInit {
   shortUrl: string = ""; // dùng để lưu short URL được tọa ra từ longUrl
   qrCodeUrl: string = "";
   errorMessage: string = "";
-  originalUrl: string = ""; // dùng để lưu đường dẫn gốc khi người dùng click vào 1 shortUrl
+  tinyUrl: string = ""; // dùng để lưu đường dẫn gốc khi người dùng click vào 1 shortUrl
   choosed: boolean = false;
   dialogShare: boolean = false;
 
@@ -26,9 +28,45 @@ export class UrlShortenerComponent implements OnInit {
   ];
 
 
-  constructor(private urlService: UrlService) { }
+  constructor(private urlService: UrlService, private graphQL: GraphqlsService) { }
 
   ngOnInit(): void {
+  }
+
+  shortenUrlGraphQL() {
+    if (!this.longUrl) {
+      this.errorMessage = "Please enter a valid URL";
+      return;
+    }
+
+    this.graphQL.shortenUrl(this.longUrl).subscribe({
+      next: (result) => {
+        this.errorMessage = "";
+        this.shortUrl = result.data.shortenUrl.data;
+        this.tinyUrl = "http://localhost:8080/api/v1/tiny-url/" + result.data.shortenUrl.data;
+        this.getQRCodeGraphQL(this.shortUrl);
+      },
+      error: (error) => {
+        this.errorMessage = "Error occurs during shorten URLs.";
+      }
+    });
+  }
+
+  getQRCodeGraphQL(tinyUrl: string) {
+    this.graphQL.getQRCode(tinyUrl).subscribe({
+      next: (response) => {
+        // const reader = new FileReader();
+        // reader.onload = () => {
+        //   this.qrCodeUrl = reader.result as string;
+        // };
+        // reader.readAsDataURL(response);
+
+        this.qrCodeUrl = `data:image/png;base64,${response.data.getQRCode}`; // prefix "data:image/png;base64" là format chuẩn để browser biết đây là dạng base64.
+      },
+      error: (error) => {
+        console.log("Error occurs during generate QR Code.", error);
+      }
+    });
   }
 
   // Tạo shortUrl
@@ -43,10 +81,10 @@ export class UrlShortenerComponent implements OnInit {
         this.shortUrl = response.shortUrl;
         this.errorMessage = "";
         this.getQRCode(this.shortUrl);
-        this.originalUrl = "http://localhost:8080/api/v1/tiny-url/" + this.shortUrl;
+        this.tinyUrl = "http://localhost:8080/api/v1/tiny-url/" + this.shortUrl;
       },
       error: (error) => {
-        alert("Có lỗi xảy ra trong quá trình tọa short URL.");
+        alert("Error occurs during shorten URLs.");
         this.errorMessage = "Failed to shorten URL";
       }
     });
@@ -88,7 +126,7 @@ export class UrlShortenerComponent implements OnInit {
   }
 
   copyToClipboard() {
-    navigator.clipboard.writeText(this.originalUrl).then(() => {
+    navigator.clipboard.writeText(this.tinyUrl).then(() => {
       alert("Text copied to clipboard");
     }).catch((err) => {
       console.log("Error copying text to clipboard: ", err);

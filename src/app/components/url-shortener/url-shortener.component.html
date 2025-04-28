@@ -10,17 +10,17 @@
         <label for="longUrl"><strong><i class="fas fa-link"></i>Original URL</strong></label>
         <input class="form-control" type="text" id="longUrl" placeholder="Enter long link here" [(ngModel)]="longUrl" />
     </div>
-    <button class="btn btn-primary" (click)="shortenUrl()">Shorten URL</button>
+    <button class="btn btn-primary" (click)="shortenUrlGraphQL()">Shorten URL</button>
 
     <!-- Error Message -->
     <div *ngIf="errorMessage" class="alert">
         {{errorMessage}}
     </div>
 
-    <!-- Result shortUrl & QR Code -->
-    <div *ngIf="shortUrl" class="form-group">
+    <!-- Result tinyUrl & QR Code -->
+    <div *ngIf="tinyUrl" class="form-group">
             <label><strong><i class="fas fa-link"></i>Tiny URL</strong></label>
-            <input class="form-control" type="text" id="shortUrl" [(ngModel)]="originalUrl" />
+            <input class="form-control" type="text" id="shortUrl" [(ngModel)]="tinyUrl" />
             <!-- <a [href]="originalUrl">{{shortUrl}}</a> -->
 
         <!-- QRCode -->
@@ -33,9 +33,9 @@
     </div>
 
     <!-- Nút chức năng: Visit Link, QR Code, Share, Copy -->
-    <div class="form-function" *ngIf="shortUrl">
+    <div class="form-function" *ngIf="tinyUrl">
 
-        <a class="btn btn-secondary" [href]="originalUrl" (click)="confirmAccess($event)">
+        <a class="btn btn-secondary" [href]="tinyUrl" (click)="confirmAccess($event)">
             <i class="fas fa-link"> Visit</i>
         </a>
 
@@ -50,33 +50,6 @@
         <button class="btn btn-secondary share" (click)="showDialogShare()"><i class="fas fa-share-nodes">Share</i></button>
     </div>
 
-    <!-- Hiển thị Share Platforms -->
-    <!-- <p-dialog [(visible)]="dialogShare" [modal]="true">
-        <h2><i class="fa fa-bullhorn"></i>Share it</h2>
-        <div class="p-fluid">
-            <div class="p-field">
-                <i class="fa-brands fa-facebook fa-beat-fade"></i>
-                Facebook
-            </div>
-            <div class="p-field">
-                <i class="fa-brands fa-twitter fa-fade"></i>
-                Twitter
-            </div>
-            <div class="p-field">
-                <i class="fa-brands fa-whatsapp fa-spin fa-spin-reverse"></i>
-                Whatsapp
-            </div>
-            <div class="p-field">
-                <i class="fa-brands fa-linkedin fa-spin"></i>
-                Linkedin
-            </div>
-            <div class="p-field">
-                <i class="fas fa-envelope fa-flip"></i>
-                Email
-            </div>
-        </div>
-    </p-dialog> -->
-
     <p-dialog [(visible)]="dialogShare" [modal]="true" [dismissableMask]="true">
         <h2><i class="fa fa-bullhorn"></i> Share it</h2>
         <div class="p-fluid">
@@ -89,4 +62,3 @@
         </div>
     </p-dialog>
 </div>
-<!-- okokokokokokokokokokokokokokokokokokokokoko -->
